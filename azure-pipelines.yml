@@ -50,7 +50,7 @@ stages:
               import yaml; \
               with open('Tags.yaml', 'r') as file: \
                 data = yaml.safe_load(file) \
-                print("Images tags is printing now")
+                print("Images tags is printing now") \
                 print(data)"
               #print(f"##vso[task.setvariable variable=IMAGE_TAGS]{{data['tags']}}")
               echo "##vso[task.setvariable variable=IMAGE_TAGS]$(data['tags'])"
