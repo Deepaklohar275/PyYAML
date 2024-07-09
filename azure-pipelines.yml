@@ -16,6 +16,8 @@ pool:
 variables:
   IMAGE_TAGS: ''
 
+
+
 #appendCommitMessageToRunName:
 #steps:
 #- script: echo Hello, world!
@@ -27,6 +29,7 @@ stages:
     jobs:
       - job: A
         steps:
+        - checkout: self
         -  task: CmdLine@2
            displayName: 'Install Python Dependencies'
            inputs:
