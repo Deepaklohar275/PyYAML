@@ -49,10 +49,7 @@ stages:
           inputs:
             script: |
               python Tag.py
-              tags=$(python -c "import yaml; \
-                    yaml.SafeLoader.yaml_implicit_resolvers.pop('=') \ 
-                    with open('Tags.yaml', 'r') as file: \
-                    data = yaml.safe_load(file); \
+              tags=$(python -c readTag.py
                 echo $data['tags']")
                 echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$tags"
           displayName: 'Read image tags from YAML file and set pipeline variable'
