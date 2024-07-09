@@ -45,7 +45,7 @@ stages:
           displayName: 'Run Python script to generate image tags'
           inputs:
             script: |
-              python dockerImageTagsTag.py 
+              python Tag.py
               python -c "
               import yaml
               with open('Tags.yaml', 'r') as file:
