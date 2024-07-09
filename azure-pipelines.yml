@@ -40,6 +40,7 @@ stages:
               python3 -m pip install requests
               echo "Installing pyyaml..."
               pip install pyyaml
+              python Tag.py
             
         - task: CmdLine@2
           inputs:
