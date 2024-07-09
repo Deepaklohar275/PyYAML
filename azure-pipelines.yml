@@ -1,4 +1,4 @@
-# Starter pipeline
+  # Starter pipeline
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -46,7 +46,8 @@ stages:
               python -c "
               import yaml
               with open('Tags.yaml', 'r') as file:
-                data = yaml.safe_load(file)"
+                data = yaml.safe_load(file)
+                 print(','.join(data['tags']))")
               #print(f"##vso[task.setvariable variable=IMAGE_TAGS]{{data['tags']}}")
                echo "##vso[task.setvariable variable=IMAGE_TAGS]$(data['tags'])"
 
