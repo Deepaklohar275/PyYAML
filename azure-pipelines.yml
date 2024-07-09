@@ -40,16 +40,19 @@ stages:
               python3 -m pip install requests
               echo "Installing pyyaml..."
               pip install pyyaml
-              python Tag.py
+              - task: PythonScript@0
+                inputs:
+                  scriptSource: 'filePath'
+                  scriptPath: 'Tag.py'
             
         - task: CmdLine@2
           inputs:
             script: |
               python Tag.py
               tags=$(python -c "import yaml; \
-                yaml.SafeLoader.yaml_implicit_resolvers.pop('=') \
-                with open('Tags.yaml', 'r') as file: \
-                  data = yaml.safe_load(file); \
+                    yaml.SafeLoader.yaml_implicit_resolvers.pop('=') \ 
+                    with open('Tags.yaml', 'r') as file: \
+                    data = yaml.safe_load(file); \
                 echo $data['tags']")
                 echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$tags"
           displayName: 'Read image tags from YAML file and set pipeline variable'
