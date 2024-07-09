@@ -42,18 +42,14 @@ stages:
               pip install pyyaml
             
         - task: CmdLine@2
-          displayName: 'Run Python script to generate image tags'
           inputs:
             script: |
-              python Tag.py
-              python -c "
-              import yaml; \
+              tags=$(python -c "import yaml; \
               with open('Tags.yaml', 'r') as file: \
-                data = yaml.safe_load(file) \
-                print("Images tags is printing now") \
-                print(data)"
-              #print(f"##vso[task.setvariable variable=IMAGE_TAGS]{{data['tags']}}")
-              echo "##vso[task.setvariable variable=IMAGE_TAGS]$(data['tags'])"
+                data = yaml.safe_load(file); \
+              echo $data['tags']")
+              echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$tags"
+          displayName: 'Read image tags from YAML file and set pipeline variable'
 
          
 # Step 3: Use the set pipeline variable
