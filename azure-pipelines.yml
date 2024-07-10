@@ -70,8 +70,8 @@ stages:
               echo "Iterating over IMAGE_TAGS"
               IFS=',' read -ra TAG_ARRAY <<< "$IMAGE_TAGS"
               for tag in "${TAG_ARRAY[@]}"; do
+                snyk container test deepaklohar/snyk : $tag
                 echo "Processing tag: $tag"
-                snyk container test deepaklohar/snyk:$tag
               done
 
 #        - script: | 
