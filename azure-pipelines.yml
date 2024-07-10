@@ -62,11 +62,15 @@ stages:
               with open('Tags.yaml', 'r') as file:
                   data = yaml.safe_load(file)
               image_tags = data.get('imageTags', [])
+              # Check if the first element starts with '{imageTags:'
+              if isinstance(image_tags, list) and image_tags[0].startswith('{imageTags:'):
+                image_tags[0] = image_tags[0].replace('{imageTags:', '')  # Remove the problematic prefix
               print(','.join(image_tags))")
-              echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$tags"
+              echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$data"
+              #echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$tags"
           displayName: 'Read image tags from YAML file and set pipeline variable'
 
-              #echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$data"
+              
         - task: CmdLine@2
           inputs:
             script: |
