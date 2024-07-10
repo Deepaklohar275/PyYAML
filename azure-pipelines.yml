@@ -45,7 +45,8 @@ stages:
         - task: CmdLine@2
           inputs:
             script: |
-              python Tag.py
+              $Tag = python Tag.py
+              echo $Tag 
               echo "YAML RUn"
               python -c "import yaml
               yaml.SafeLoader.yaml_implicit_resolvers.pop('=') 
