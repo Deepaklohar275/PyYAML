@@ -72,7 +72,7 @@ stages:
               for tag in "${TAG_ARRAY[@]}"; do
                   # Strip any surrounding quotes
                   tag=$(echo $tag | sed "s/'//g")
-                  snyk container test deepaklohar/snyk:$tag
+                  snyk container test "deepaklohar/snyk:$tag"
                   echo "Processing tag: $tag"
               done
 
