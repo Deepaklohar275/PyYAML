@@ -54,8 +54,9 @@ stages:
                   data = yaml.safe_load(file)
               print(data)
               print(data.get('imageTags', 'No imageTags found'))")
-              
               echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$data"
-#        - task :CmdLine@2
-#              echo "Using image tags: $(IMAGE_TAGS)"
-#          displayName: 'Read image tags from YAML file and set pipeline variable'
+        - script: | 
+             echo "Using image tags: $(IMAGE_TAGS)"
+        displayName: 'Read image tags from YAML file and set pipeline variable'
+
+          
