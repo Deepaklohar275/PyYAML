@@ -52,7 +52,9 @@ stages:
               yaml.SafeLoader.yaml_implicit_resolvers.pop('=')
               with open('Tags.yaml', 'r') as file:
                   data = yaml.safe_load(file)
+              print(data)
               print(data.get('imageTags', 'No imageTags found'))")
+              
               echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$data"
 #        - task :CmdLine@2
 #              echo "Using image tags: $(IMAGE_TAGS)"
