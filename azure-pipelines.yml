@@ -61,9 +61,12 @@ stages:
               yaml.SafeLoader.yaml_implicit_resolvers.pop('=')
               with open('Tags.yaml', 'r') as file:
                   data = yaml.safe_load(file)
-              print(data)
-              print(data.get('imageTags', 'No imageTags found'))")
-              echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$data"
+              image_tags = data.get('imageTags', [])
+              print(','.join(image_tags))")
+              echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$tags"
+              displayName: 'Read image tags from YAML file and set pipeline variable'
+
+              #echo "##vso[task.setvariable variable=IMAGE_TAGS;issecret=false]$data"
         - task: CmdLine@2
           inputs:
             script: |
@@ -72,8 +75,9 @@ stages:
               for tag in "${TAG_ARRAY[@]}"; do
                   # Strip any surrounding quotes
                   tag=$(echo $tag | sed "s/'//g")
-                  snyk container test "deepaklohar/snyk:$tag"
                   echo "Processing tag: $tag"
+                  # Add your processing logic here
+                  snyk container test "deepaklohar/snyk:$tag"
               done
 
 #        - script: | 
