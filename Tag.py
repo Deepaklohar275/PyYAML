@@ -18,7 +18,7 @@ headers = {
 tags =imagetag(url)
 #save to YAML as a Data Variable
 data = {'imageTags': tags}
-#print(data)
+print(data)
 print(tags)
 with open('Tags.yaml', 'w') as file:
     yaml.dump(data, file, default_flow_style=False)
